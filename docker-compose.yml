@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: bot-container
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+    volumes:
+      - ./db:/app/db
+    restart: always
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "
+      alembic upgrade head && 
+      python bot.py
+      "
+
